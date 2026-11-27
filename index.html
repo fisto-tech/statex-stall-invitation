@@ -113,14 +113,15 @@
       justify-content: center;
       perspective: 2400px;
       background: #566A39;
+      padding: 12px;
     }
 
     .card-frame {
       position: relative;
       width: 100%;
       max-width: 460px;
-      height: 100dvh;
-      max-height: 100dvh;
+      height: 100%;
+      max-height: 840px;
       background: linear-gradient(180deg, #2d401e 0%, #263818 65%, #1f2f14 100%);
       overflow: hidden;
       display: flex;
@@ -129,6 +130,7 @@
       transform-style: preserve-3d;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
       transition: background 0.5s ease;
+      border-radius: 20px;
     }
 
     .card-frame.is-emerald {
@@ -141,9 +143,19 @@
 
     @media (min-width: 640px) {
       .card-frame {
-        height: min(94dvh, 840px);
+        max-height: 820px;
         border-radius: 24px;
         border: 1px solid rgba(159, 208, 157, 0.2);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stage-wrapper {
+        padding: 0;
+      }
+      .card-frame {
+        border-radius: 0;
+        max-height: 100dvh;
       }
     }
 
@@ -214,12 +226,12 @@
       position: absolute;
       inset: 0;
       z-index: 25;
-      padding: 28px 22px 32px;
+      padding: clamp(16px, 4vh, 28px) clamp(16px, 4vw, 22px) clamp(20px, 4vh, 32px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 36px;
+      justify-content: space-evenly;
+      gap: clamp(14px, 3vh, 32px);
       text-align: center;
       pointer-events: none;
       transition: opacity 0.35s ease, transform 0.35s ease;
@@ -299,11 +311,11 @@
       position: absolute;
       inset: 0;
       z-index: 20;
-      padding: 24px 22px 74px;
+      padding: clamp(14px, 2.5vh, 20px) 20px clamp(68px, 9vh, 76px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       text-align: center;
       opacity: 0;
       pointer-events: none;
@@ -321,23 +333,36 @@
     .scene[data-scene="0"],
     .scene[data-scene="1"] {
       pointer-events: none !important;
+      justify-content: center;
+      gap: 16px;
     }
 
-    .scene[data-scene="0"] {
-      padding-top: 86px;
-      padding-bottom: 112px;
-    }
-
-    .scene[data-scene="1"] {
-      padding-top: 38px;
-      padding-bottom: 84px;
+    .scene[data-scene="0"] .scene-placeholder-slot,
+    .scene[data-scene="1"] .scene-placeholder-slot {
+      width: 100%;
+      height: clamp(260px, 42vh, 340px);
+      flex-shrink: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .scene[data-scene="2"] {
-      justify-content: center;
-      gap: 28px;
-      padding-top: 24px;
-      padding-bottom: 72px;
+      justify-content: space-evenly;
+      gap: 12px;
+      padding-top: clamp(16px, 3vh, 28px);
+      padding-bottom: clamp(68px, 9vh, 76px);
+    }
+
+    /* Shared 3D Model placement - synced with slot position */
+    #sharedModelCard {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      transition: opacity 0.3s ease;
+      margin-top: -18px; /* precisely centered over placeholder slot */
     }
 
     /* Rounded white/off-white card with mint/sage border */
@@ -345,7 +370,7 @@
       width: 100%;
       background: #f5f6f2;
       border: 3px solid #88c386;
-      border-radius: 22px;
+      border-radius: 20px;
       box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
       overflow: hidden;
       position: relative;
@@ -353,14 +378,38 @@
 
     .model-box {
       width: 100%;
-      height: 310px;
+      height: clamp(260px, 42vh, 340px);
       background: radial-gradient(circle at 50% 45%, #fff8eb 0%, #f1e3c8 100%);
       position: relative;
     }
 
-    @media (max-height: 700px) {
+    @media (max-height: 750px) {
+      .scene[data-scene="0"] .scene-placeholder-slot,
+      .scene[data-scene="1"] .scene-placeholder-slot,
       .model-box {
-        height: 250px;
+        height: clamp(220px, 36vh, 270px);
+      }
+      .scene[data-scene="0"],
+      .scene[data-scene="1"] {
+        gap: 12px;
+      }
+      #sharedModelCard {
+        margin-top: -14px;
+      }
+    }
+
+    @media (max-height: 640px) {
+      .scene[data-scene="0"] .scene-placeholder-slot,
+      .scene[data-scene="1"] .scene-placeholder-slot,
+      .model-box {
+        height: 180px;
+      }
+      .scene[data-scene="0"],
+      .scene[data-scene="1"] {
+        gap: 8px;
+      }
+      #sharedModelCard {
+        margin-top: -12px;
       }
     }
 
@@ -521,7 +570,7 @@
 
       <div class="scenes-container" id="scenesContainer">
         <!-- SHARED STATIC 360° 3D MODEL CARD (Visible on Page 1 & Page 2) -->
-        <div id="sharedModelCard" class="absolute left-[22px] right-[22px] top-[49%] -translate-y-1/2 z-10 transition-opacity duration-300">
+        <div id="sharedModelCard">
           <div class="showcase-card">
             <div class="model-box" id="modelSlot1">
               <model-viewer
@@ -556,22 +605,24 @@
         <!-- INNER PAGE 1: Introducing Statex Unipack 909 (Text Only, Model is Shared) -->
         <section class="scene active pointer-events-none" data-scene="0" aria-label="Page 1: Introducing Unipack 909">
           <div class="w-full flex flex-col items-center">
-            <p class="font-montserrat font-bold text-base tracking-widest text-sage-300 uppercase">
+            <p class="font-montserrat font-bold text-xs sm:text-sm tracking-widest text-sage-300 uppercase">
               INTRODUCING
             </p>
-            <h2 class="mt-1 font-montserrat font-extrabold text-[clamp(20px,6vw,30px)] whitespace-nowrap tracking-wide text-white uppercase">
+            <h2 class="mt-0.5 font-montserrat font-extrabold text-[clamp(19px,4.5vw,26px)] leading-tight whitespace-nowrap tracking-wide text-white uppercase">
               STATEX UNIPACK 909
             </h2>
-            <p class="mt-1 text-sm sm:text-base text-white/90">
+            <p class="mt-0.5 text-xs sm:text-sm text-white/90">
               Fully automatic cone yarn packing machine
             </p>
           </div>
 
-          <div class="w-full flex flex-col items-center pb-2">
-            <p class="font-montserrat font-bold text-sm sm:text-base tracking-wider text-white uppercase">
+          <div class="scene-placeholder-slot" aria-hidden="true"></div>
+
+          <div class="w-full flex flex-col items-center">
+            <p class="font-montserrat font-bold text-xs sm:text-sm tracking-wider text-white uppercase">
               AUTOMATION &nbsp;•&nbsp; PRECISION &nbsp;•&nbsp; PRODUCTIVITY
             </p>
-            <p class="mt-1.5 text-sm sm:text-base text-sage-300/95">
+            <p class="mt-0.5 text-xs sm:text-sm text-sage-300/95">
               A smarter way to pack cone yarn
             </p>
           </div>
@@ -580,28 +631,30 @@
         <!-- INNER PAGE 2: Multiple Packing Solutions (Text Only, Model is Shared) -->
         <section class="scene pointer-events-none" data-scene="1" aria-label="Page 2: Multiple Packing Solutions">
           <div class="w-full flex flex-col items-center">
-            <h2 class="font-montserrat font-extrabold text-xl sm:text-2xl leading-snug tracking-wide text-sage-300 uppercase">
+            <h2 class="font-montserrat font-extrabold text-base sm:text-xl leading-snug tracking-wide text-sage-300 uppercase">
               ONE MACHINE. MULTIPLE<br>PACKING SOLUTIONS.
             </h2>
-            <p class="mt-1 text-sm sm:text-base text-white/90">
+            <p class="mt-0.5 text-xs sm:text-sm text-white/90">
               Designed for flexibility and productivity
             </p>
-            <p class="mt-2 font-montserrat font-bold text-base sm:text-lg text-white">
+            <p class="mt-1 font-montserrat font-bold text-xs sm:text-base text-white">
               50 kg / 60 kg bags &amp; carton boxes
             </p>
-            <p class="mt-0.5 text-sm sm:text-base font-semibold text-sage-300">
+            <p class="mt-0.5 text-xs sm:text-sm font-semibold text-sage-300">
               — all in one machine —
             </p>
           </div>
 
-          <div class="w-full flex flex-col items-center pb-1">
-            <p class="font-montserrat font-bold text-sm sm:text-base tracking-wider text-sage-300 uppercase">
+          <div class="scene-placeholder-slot" aria-hidden="true"></div>
+
+          <div class="w-full flex flex-col items-center">
+            <p class="font-montserrat font-bold text-xs sm:text-sm tracking-wider text-sage-300 uppercase">
               MECHANICAL SPEED OF PACKING
             </p>
-            <p class="mt-1 font-montserrat font-bold text-2xl sm:text-[26px] text-white uppercase">
+            <p class="mt-0.5 font-montserrat font-bold text-xl sm:text-2xl text-white uppercase">
               UP TO 1,500 BAGS PER DAY
             </p>
-            <p class="mt-1 text-sm text-white/90">
+            <p class="mt-0.5 text-xs text-white/90">
               High productivity. Flexible packing formats.
             </p>
           </div>
@@ -609,51 +662,51 @@
 
         <!-- INNER PAGE 3: Final Scene — India ITME 2026 Invitation -->
         <section class="scene" data-scene="2" aria-label="Page 3: India ITME 2026">
-          <div class="w-full flex flex-col items-center pt-1">
-            <p class="font-montserrat font-bold text-sm tracking-widest text-sage-300 uppercase">
+          <div class="w-full flex flex-col items-center">
+            <p class="font-montserrat font-bold text-xs sm:text-sm tracking-widest text-sage-300 uppercase">
               MEET US AT
             </p>
-            <h2 class="mt-1 font-montserrat font-bold text-2xl sm:text-[28px] tracking-wide text-white uppercase">
+            <h2 class="mt-0.5 font-montserrat font-bold text-xl sm:text-2xl tracking-wide text-white uppercase">
               INDIA ITME 2026
             </h2>
           </div>
 
-          <div class="showcase-card px-5 py-7 sm:py-8 my-3 flex flex-col items-center justify-center text-center">
-            <h3 class="font-montserrat font-extrabold text-xl sm:text-2xl text-[#223026] tracking-wide uppercase">
+          <div class="showcase-card px-4 py-5 sm:py-6 my-1 sm:my-2 flex flex-col items-center justify-center text-center">
+            <h3 class="font-montserrat font-extrabold text-lg sm:text-xl text-[#223026] tracking-wide uppercase">
               INDIA ITME 2026
             </h3>
-            <p class="mt-0.5 font-montserrat font-extrabold text-base sm:text-lg text-emeraldDeep uppercase tracking-wider">
+            <p class="mt-0.5 font-montserrat font-extrabold text-sm sm:text-base text-emeraldDeep uppercase tracking-wider">
               EXHIBITION
             </p>
 
-            <div class="mt-5">
-              <p class="font-montserrat font-extrabold text-lg sm:text-xl text-[#223026] uppercase">
+            <div class="mt-3 sm:mt-4">
+              <p class="font-montserrat font-extrabold text-base sm:text-lg text-[#223026] uppercase">
                 4–9 DECEMBER 2026
               </p>
-              <p class="mt-1 font-montserrat font-bold text-xs sm:text-sm text-[#223026] tracking-wider uppercase">
+              <p class="mt-0.5 font-montserrat font-bold text-xs sm:text-sm text-[#223026] tracking-wider uppercase">
                 GREATER NOIDA &nbsp;•&nbsp; INDIA
               </p>
             </div>
 
-            <div class="mt-5">
-              <p class="font-montserrat font-extrabold text-xl sm:text-2xl text-emeraldDeep uppercase tracking-wide">
+            <div class="mt-3 sm:mt-4">
+              <p class="font-montserrat font-extrabold text-lg sm:text-xl text-emeraldDeep uppercase tracking-wide">
                 HALL 9 &nbsp;•&nbsp; H9G7
               </p>
-              <p class="mt-1 font-montserrat font-bold text-xs sm:text-sm text-[#223026] tracking-wider uppercase">
+              <p class="mt-0.5 font-montserrat font-bold text-xs sm:text-sm text-[#223026] tracking-wider uppercase">
                 INDIA EXPO MART
               </p>
             </div>
           </div>
 
-          <div class="w-full flex flex-col items-center pb-2">
-            <p class="font-montserrat font-bold text-sm sm:text-base text-white">
+          <div class="w-full flex flex-col items-center">
+            <p class="font-montserrat font-bold text-xs sm:text-sm text-white">
               We look forward to welcoming you!
             </p>
-            <p class="mt-3 text-xs text-white/80">By</p>
-            <p class="mt-0.5 font-montserrat font-extrabold text-sm sm:text-base text-white tracking-wide uppercase">
+            <p class="mt-1.5 text-[11px] text-white/80">By</p>
+            <p class="mt-0.5 font-montserrat font-extrabold text-xs sm:text-sm text-white tracking-wide uppercase">
               K. SUBRAMANIAM M.D.
             </p>
-            <p class="mt-0.5 text-xs sm:text-sm font-semibold text-sage-300">
+            <p class="mt-0.5 text-[11px] sm:text-xs font-semibold text-sage-300">
               Statex Group of Companies
             </p>
           </div>
