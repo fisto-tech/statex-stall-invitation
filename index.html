@@ -146,10 +146,6 @@
       background: linear-gradient(180deg, #0e3b22 0%, #0d351e 65%, #0b2c19 100%);
     }
 
-    .card-frame.is-emerald .bottom-wave {
-      opacity: 0;
-    }
-
     @media (min-width: 640px) {
       .card-frame {
         max-height: 820px;
@@ -923,17 +919,39 @@
       }
       let current = 0;
       let isOpened = false;
+      let autoplayTimer = null;
+      const AUTOPLAY_INTERVAL_MS = 5000;
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+          if (!isOpened || current >= 2) {
+            stopAutoplay();
+            return;
+          }
+          goToScene(current + 1);
+        }, AUTOPLAY_INTERVAL_MS);
+      }
 
       function openDoors() {
         if (isOpened) return;
         isOpened = true;
         frame.classList.add('is-open');
         scenesContainer.classList.add('revealed');
+        startAutoplay();
       }
 
       function closeDoors() {
         if (!isOpened) return;
         isOpened = false;
+        stopAutoplay();
         frame.classList.remove('is-open');
         scenesContainer.classList.remove('revealed');
         // Reset to first page
@@ -985,8 +1003,12 @@
         nextBtn.textContent = current === 2 ? 'Done' : 'Next →';
       }
 
-      prevBtn.addEventListener('click', () => goToScene(current - 1));
+      prevBtn.addEventListener('click', () => {
+        stopAutoplay();
+        goToScene(current - 1);
+      });
       nextBtn.addEventListener('click', () => {
+        stopAutoplay();
         if (current === 2) {
           // When Done is clicked on the final page, close and return to the Home Invitation screen
           closeDoors();
@@ -996,14 +1018,17 @@
       });
       dots.forEach((dot) => {
         dot.addEventListener('click', () => {
+          stopAutoplay();
           goToScene(Number(dot.dataset.goto));
         });
       });
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          stopAutoplay();
           goToScene(current + 1);
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          stopAutoplay();
           goToScene(current - 1);
         }
       });
