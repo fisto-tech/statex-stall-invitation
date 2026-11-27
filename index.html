@@ -171,7 +171,7 @@
       opacity: 0.45;
     }
 
-    /* Center-Split 3D Doors (matching original main branch) */
+    /* Center-Split 3D Doors (Smooth Open & Close Animations) */
     .center-split-door {
       position: absolute;
       top: 0;
@@ -180,15 +180,14 @@
       z-index: 20;
       cursor: pointer;
       background: linear-gradient(180deg, #2d401e 0%, #263818 65%, #1f2f14 100%);
-      box-shadow: none;
-      transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1),
-                  opacity 0.55s ease 0.95s,
-                  box-shadow 0.35s ease,
-                  visibility 0s linear 1.5s;
+      transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                  opacity 0.4s ease,
+                  box-shadow 0.35s ease;
       visibility: visible;
       opacity: 1;
       transform: rotateY(0deg);
       backface-visibility: hidden;
+      pointer-events: auto;
     }
 
     .center-split-left {
@@ -209,7 +208,6 @@
       box-shadow: 12px 0 35px rgba(0, 0, 0, 0.75), inset -3px 0 0 #9fd09d;
       opacity: 0;
       pointer-events: none;
-      visibility: hidden;
     }
 
     .card-frame.is-open .center-split-right {
@@ -218,7 +216,6 @@
       box-shadow: -12px 0 35px rgba(0, 0, 0, 0.75), inset 3px 0 0 #9fd09d;
       opacity: 0;
       pointer-events: none;
-      visibility: hidden;
     }
 
     /* Cover Teaser Overlay on Closed Doors */
@@ -233,8 +230,8 @@
       justify-content: space-evenly;
       gap: clamp(14px, 3vh, 32px);
       text-align: center;
-      pointer-events: none;
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: auto;
+      transition: opacity 0.5s ease 0.3s, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
       opacity: 1;
       transform: scale(1);
     }
@@ -243,6 +240,7 @@
       opacity: 0;
       transform: scale(0.92);
       pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .seal-center-container {
@@ -575,21 +573,23 @@
           </p>
         </div>
 
-        <div class="mt-1 seal-center-container flex flex-col items-center gap-3">
+        <div class="mt-1 seal-center-container flex flex-col items-center">
           <button id="openSealBtn" type="button" aria-label="Tap seal to open"
-            class="relative w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-105 active:scale-95"
+            class="relative w-28 h-28 rounded-full flex flex-col items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-105 active:scale-95 text-center p-2"
             style="background: radial-gradient(circle at 35% 30%, #6d8649 0%, #4b5d31 55%, #2e3b1c 100%); border: 2.5px solid #9fd09d; box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 22px rgba(159,208,157,0.35), inset 0 -5px 10px rgba(0,0,0,0.45); animation: sealPulse 2.2s infinite;">
             <span class="absolute inset-[6px] rounded-full border border-dashed border-[#9fd09d]/75 pointer-events-none"></span>
-            <svg class="w-8 h-8 text-[#e8f5e7] drop-shadow" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            
+            <svg class="w-6 h-6 text-[#e8f5e7] drop-shadow mb-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z" />
               <circle cx="12" cy="11" r="2.2" fill="#9fd09d" />
             </svg>
-          </button>
 
-          <button type="button" onclick="document.getElementById('openSealBtn').click()"
-            class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#243016]/90 text-[#d8eed7] font-montserrat font-bold text-xs tracking-[0.14em] uppercase border border-[#9fd09d]/55 shadow-lg cursor-pointer hover:bg-[#2f3e1d] transition">
-            <span>TAP SEAL TO OPEN</span>
-            <span class="text-[#9fd09d] text-sm leading-none">↑</span>
+            <span class="font-montserrat font-extrabold text-[10px] leading-tight tracking-[0.14em] text-[#e8f5e7] uppercase">
+              TAP SEAL
+            </span>
+            <span class="font-montserrat font-bold text-[9px] leading-tight tracking-[0.12em] text-[#9fd09d] uppercase">
+              TO OPEN
+            </span>
           </button>
         </div>
       </section>
@@ -644,7 +644,7 @@
                   auto-rotate
                   auto-rotate-delay="400"
                   rotation-per-second="20deg"
-                  camera-orbit="auto auto 62%"
+                  camera-orbit="-19.91deg 63.63deg 21.18m"
                   field-of-view="24deg"
                   shadow-intensity="0.6"
                   environment-image="neutral"
@@ -660,7 +660,7 @@
                   <button id="autoRotateBtn" type="button" class="px-2.5 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer">
                     Auto Rotate: On
                   </button>
-                  <button id="resetViewBtn" type="button" class="px-3 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer">
+                  <button id="resetViewBtn" type="button" disabled class="px-3 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#2b371b]/85 disabled:hover:text-[#9fd09d]">
                     Reset View
                   </button>
                 </div>
@@ -750,7 +750,7 @@
 
       <!-- Bottom Navigation Controls (3 Inner Pages) -->
       <nav class="nav-bar" aria-label="Scene navigation">
-        <button id="prevBtn" class="nav-btn" type="button" disabled aria-label="Previous page">
+        <button id="prevBtn" class="nav-btn" type="button" aria-label="Previous page">
           ← Prev
         </button>
 
@@ -787,14 +787,53 @@
       const resetViewBtn = document.getElementById('resetViewBtn');
       const autoRotateBtn = document.getElementById('autoRotateBtn');
 
+      const DEFAULT_CAMERA_ORBIT = '-19.91deg 63.63deg 21.18m';
+      const DEFAULT_FOV = '24deg';
+      const DEFAULT_TARGET = 'auto auto auto';
+
+      function markModelInteracted() {
+        if (resetViewBtn && resetViewBtn.disabled) {
+          resetViewBtn.disabled = false;
+        }
+      }
+
+      // Detect any user dragging, zooming, or rotating
+      unipackModel.addEventListener('camera-change', (event) => {
+        if (event && event.detail && event.detail.source === 'user-interaction') {
+          markModelInteracted();
+        }
+      });
+      unipackModel.addEventListener('pointerdown', markModelInteracted, { passive: true });
+      unipackModel.addEventListener('touchstart', markModelInteracted, { passive: true });
+      unipackModel.addEventListener('wheel', markModelInteracted, { passive: true });
+
       if (resetViewBtn) {
         resetViewBtn.addEventListener('click', () => {
-          unipackModel.cameraTarget = 'auto auto auto';
-          unipackModel.cameraOrbit = 'auto auto 62%';
-          unipackModel.fieldOfView = '24deg';
+          const isAutoRotating = unipackModel.hasAttribute('auto-rotate');
+
+          // Reset model-viewer attributes to default
+          unipackModel.cameraTarget = DEFAULT_TARGET;
+          unipackModel.cameraOrbit = DEFAULT_CAMERA_ORBIT;
+          unipackModel.fieldOfView = DEFAULT_FOV;
+
+          // If jumping or resetting camera goal
           if (typeof unipackModel.jumpCameraToGoal === 'function') {
             unipackModel.jumpCameraToGoal();
           }
+
+          if (isAutoRotating) {
+            // Momentarily pause auto-rotate so it picks up the reset orbit immediately
+            unipackModel.removeAttribute('auto-rotate');
+            requestAnimationFrame(() => {
+              if (typeof unipackModel.jumpCameraToGoal === 'function') {
+                unipackModel.jumpCameraToGoal();
+              }
+              unipackModel.setAttribute('auto-rotate', '');
+            });
+          }
+
+          // Disable button after reset until user interacts again
+          resetViewBtn.disabled = true;
         });
       }
 
@@ -832,6 +871,15 @@
         scenesContainer.classList.add('revealed');
       }
 
+      function closeDoors() {
+        if (!isOpened) return;
+        isOpened = false;
+        frame.classList.remove('is-open');
+        scenesContainer.classList.remove('revealed');
+        // Reset to first page
+        goToScene(0);
+      }
+
       openSealBtn.addEventListener('click', openDoors);
       leftDoor.addEventListener('click', openDoors);
       rightDoor.addEventListener('click', openDoors);
@@ -844,7 +892,12 @@
       const bottomSlide1 = document.getElementById('bottomSlide1');
 
       function goToScene(index) {
-        if (index < 0 || index >= 3) return;
+        if (index < 0) {
+          // If on the first page and clicking Prev, redirect back to Home Invitation Screen
+          closeDoors();
+          return;
+        }
+        if (index >= 3) return;
         current = index;
 
         // Toggle background emerald theme on Page 2
@@ -866,13 +919,21 @@
           if (sceneInvitation) sceneInvitation.classList.add('active');
         }
 
-        prevBtn.disabled = current === 0;
-        nextBtn.disabled = current === 2;
+        // Both navigation buttons remain active
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
         nextBtn.textContent = current === 2 ? 'Done' : 'Next →';
       }
 
       prevBtn.addEventListener('click', () => goToScene(current - 1));
-      nextBtn.addEventListener('click', () => goToScene(current + 1));
+      nextBtn.addEventListener('click', () => {
+        if (current === 2) {
+          // When Done is clicked on the final page, close and return to the Home Invitation screen
+          closeDoors();
+        } else {
+          goToScene(current + 1);
+        }
+      });
       dots.forEach((dot) => {
         dot.addEventListener('click', () => {
           goToScene(Number(dot.dataset.goto));
