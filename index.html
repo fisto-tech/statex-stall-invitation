@@ -649,7 +649,9 @@
                   shadow-intensity="0.6"
                   environment-image="neutral"
                   touch-action="pan-y"
-                  interaction-prompt="auto">
+                  interaction-prompt="auto"
+                  min-field-of-view="12deg"
+                  max-field-of-view="35deg">
                 </model-viewer>
                 <div id="modelLoader" class="absolute inset-0 flex items-center justify-center bg-[#f5f6f2]/60 text-[#223026] text-xs font-semibold tracking-wide pointer-events-none transition-opacity duration-300">
                   <span class="px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm">Preparing 3D View...</span>
@@ -815,6 +817,11 @@
         if (modelLoader) {
           modelLoader.style.opacity = '0';
           setTimeout(() => { modelLoader.style.display = 'none'; }, 300);
+        }
+
+        // Prevent <model-viewer> from dropping resolution/blurring during drag and rotation
+        if (unipackModel.renderer && typeof unipackModel.renderer.setPixelRatio === 'function') {
+          unipackModel.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         }
       });
 
