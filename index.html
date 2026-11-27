@@ -187,7 +187,9 @@
       width: 50.15%;
       z-index: 20;
       cursor: pointer;
-      background: linear-gradient(180deg, #2d401e 0%, #263818 65%, #1f2f14 100%);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.10) 0%, rgba(159, 208, 157, 0.08) 38%, rgba(0, 0, 0, 0.18) 100%),
+        linear-gradient(180deg, #2d401e 0%, #263818 65%, #1f2f14 100%);
       transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
         opacity 0.4s ease,
         box-shadow 0.35s ease;
@@ -933,6 +935,19 @@
           }
         });
       }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopAmbientMusic();
+          if (musicToggleBtn && !isMusicMuted) {
+            isMusicMuted = true;
+            musicToggleBtn.textContent = '♪ Music: Off';
+          }
+        }
+      });
+
+      window.addEventListener('pagehide', stopAmbientMusic);
+      window.addEventListener('beforeunload', stopAmbientMusic);
 
       function openDoors() {
         if (isOpened) return;
