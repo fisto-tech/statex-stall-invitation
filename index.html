@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
@@ -11,7 +12,9 @@
   <!-- Google Fonts: Montserrat, Open Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -53,7 +56,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       width: 100%;
@@ -101,8 +105,13 @@
     }
 
     @keyframes preloaderSlide {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(260%); }
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(260%);
+      }
     }
 
     .stage-wrapper {
@@ -153,6 +162,7 @@
       .stage-wrapper {
         padding: 0;
       }
+
       .card-frame {
         border-radius: 0;
         max-height: 100dvh;
@@ -181,8 +191,8 @@
       cursor: pointer;
       background: linear-gradient(180deg, #2d401e 0%, #263818 65%, #1f2f14 100%);
       transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-                  opacity 0.4s ease,
-                  box-shadow 0.35s ease;
+        opacity 0.4s ease,
+        box-shadow 0.35s ease;
       visibility: visible;
       opacity: 1;
       transform: rotateY(0deg);
@@ -283,9 +293,17 @@
     }
 
     @keyframes sealPulse {
-      0% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 0 0 rgba(159, 208, 157, 0.55); }
-      70% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 0 14px rgba(159, 208, 157, 0); }
-      100% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 0 0 rgba(159, 208, 157, 0); }
+      0% {
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 0 0 rgba(159, 208, 157, 0.55);
+      }
+
+      70% {
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 0 14px rgba(159, 208, 157, 0);
+      }
+
+      100% {
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 0 0 rgba(159, 208, 157, 0);
+      }
     }
 
     /* Scene transitions */
@@ -417,6 +435,7 @@
       .model-box {
         height: clamp(220px, 38vh, 280px);
       }
+
       .showcase-stage,
       .scene-invitation {
         padding-top: 10px;
@@ -429,6 +448,7 @@
       .model-box {
         height: 180px;
       }
+
       .showcase-stage,
       .scene-invitation {
         padding-top: 8px;
@@ -525,6 +545,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Preloader -->
   <div id="preloader" aria-label="Loading invitation">
@@ -577,14 +598,17 @@
           <button id="openSealBtn" type="button" aria-label="Tap seal to open"
             class="relative w-28 h-28 rounded-full flex flex-col items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-105 active:scale-95 text-center p-2"
             style="background: radial-gradient(circle at 35% 30%, #6d8649 0%, #4b5d31 55%, #2e3b1c 100%); border: 2.5px solid #9fd09d; box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 22px rgba(159,208,157,0.35), inset 0 -5px 10px rgba(0,0,0,0.45); animation: sealPulse 2.2s infinite;">
-            <span class="absolute inset-[6px] rounded-full border border-dashed border-[#9fd09d]/75 pointer-events-none"></span>
-            
-            <svg class="w-6 h-6 text-[#e8f5e7] drop-shadow mb-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <span
+              class="absolute inset-[6px] rounded-full border border-dashed border-[#9fd09d]/75 pointer-events-none"></span>
+
+            <svg class="w-6 h-6 text-[#e8f5e7] drop-shadow mb-1" viewBox="0 0 24 24" fill="currentColor"
+              aria-hidden="true">
               <path d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z" />
               <circle cx="12" cy="11" r="2.2" fill="#9fd09d" />
             </svg>
 
-            <span class="font-montserrat font-extrabold text-[10px] leading-tight tracking-[0.14em] text-[#e8f5e7] uppercase">
+            <span
+              class="font-montserrat font-extrabold text-[10px] leading-tight tracking-[0.14em] text-[#e8f5e7] uppercase">
               TAP SEAL
             </span>
             <span class="font-montserrat font-bold text-[9px] leading-tight tracking-[0.12em] text-[#9fd09d] uppercase">
@@ -604,7 +628,8 @@
               <p class="font-montserrat font-bold text-sm sm:text-base tracking-widest text-sage-300 uppercase">
                 INTRODUCING
               </p>
-              <h2 class="mt-1 font-montserrat font-extrabold text-[clamp(22px,5.2vw,30px)] leading-tight whitespace-nowrap tracking-wide text-white uppercase">
+              <h2
+                class="mt-1 font-montserrat font-extrabold text-[clamp(22px,5.2vw,30px)] leading-tight whitespace-nowrap tracking-wide text-white uppercase">
                 STATEX UNIPACK 909
               </h2>
               <p class="mt-1 text-sm sm:text-base text-white/95">
@@ -614,7 +639,8 @@
 
             <!-- Page 2 Top Text -->
             <div class="text-slide" id="topSlide1">
-              <h2 class="font-montserrat font-extrabold text-lg sm:text-2xl leading-snug tracking-wide text-sage-300 uppercase">
+              <h2
+                class="font-montserrat font-extrabold text-lg sm:text-2xl leading-snug tracking-wide text-sage-300 uppercase">
                 ONE MACHINE. MULTIPLE<br>PACKING SOLUTIONS.
               </h2>
               <p class="mt-0.5 text-sm sm:text-base text-white/95">
@@ -633,34 +659,25 @@
           <div class="scene-model-slot">
             <div class="showcase-card" id="sharedModelCard">
               <div class="model-box" id="modelSlot1">
-                <model-viewer
-                  id="unipackModel"
-                  alt="Statex Unipack 909 360-degree 3D Model"
+                <model-viewer id="unipackModel" alt="Statex Unipack 909 360-degree 3D Model"
                   src="statex-automation-model.glb"
-                  poster="statex-product-image.webp"
-                  loading="eager"
-                  reveal="auto"
-                  camera-controls
-                  auto-rotate
-                  auto-rotate-delay="400"
-                  rotation-per-second="20deg"
-                  camera-orbit="-19.91deg 63.63deg 21.18m"
-                  field-of-view="24deg"
-                  shadow-intensity="0.6"
-                  environment-image="neutral"
-                  touch-action="pan-y"
-                  interaction-prompt="auto"
-                  min-field-of-view="12deg"
-                  max-field-of-view="35deg">
+                  poster="statex-product-image.webp" loading="eager" reveal="auto" camera-controls auto-rotate
+                  auto-rotate-delay="400" rotation-per-second="20deg" camera-orbit="-19.91deg 63.63deg 21.18m"
+                  field-of-view="24deg" shadow-intensity="0.6" environment-image="neutral" touch-action="pan-y"
+                  interaction-prompt="auto" min-field-of-view="12deg" max-field-of-view="35deg">
                 </model-viewer>
-                <div id="modelLoader" class="absolute inset-0 flex items-center justify-center bg-[#f5f6f2]/60 text-[#223026] text-xs font-semibold tracking-wide pointer-events-none transition-opacity duration-300">
-                  <span class="px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm">Preparing 3D View...</span>
+                <div id="modelLoader"
+                  class="absolute inset-0 flex items-center justify-center bg-[#f5f6f2]/60 text-[#223026] text-xs font-semibold tracking-wide pointer-events-none transition-opacity duration-300">
+                  <span class="px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm">Preparing 3D
+                    View...</span>
                 </div>
                 <div class="absolute bottom-2.5 right-3 z-10 flex items-center gap-1.5">
-                  <button id="autoRotateBtn" type="button" class="px-2.5 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer">
+                  <button id="autoRotateBtn" type="button"
+                    class="px-2.5 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer">
                     Auto Rotate: On
                   </button>
-                  <button id="resetViewBtn" type="button" disabled class="px-3 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#2b371b]/85 disabled:hover:text-[#9fd09d]">
+                  <button id="resetViewBtn" type="button" disabled
+                    class="px-3 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#2b371b]/85 disabled:hover:text-[#9fd09d]">
                     Reset View
                   </button>
                 </div>
@@ -710,7 +727,8 @@
             <h3 class="font-montserrat font-extrabold text-xl sm:text-2xl text-[#223026] tracking-wide uppercase">
               INDIA ITME 2026
             </h3>
-            <p class="mt-0.5 font-montserrat font-extrabold text-base sm:text-lg text-emeraldDeep uppercase tracking-wider">
+            <p
+              class="mt-0.5 font-montserrat font-extrabold text-base sm:text-lg text-emeraldDeep uppercase tracking-wider">
               EXHIBITION
             </p>
 
@@ -789,7 +807,7 @@
 
       const DEFAULT_CAMERA_ORBIT = '-19.91deg 63.63deg 21.18m';
       const DEFAULT_FOV = '24deg';
-      const DEFAULT_TARGET = 'auto auto auto';
+      let initialCameraTarget = 'auto auto auto';
 
       function markModelInteracted() {
         if (resetViewBtn && resetViewBtn.disabled) {
@@ -797,7 +815,28 @@
         }
       }
 
-      // Detect any user dragging, zooming, or rotating
+      // Record default model target once loaded
+      unipackModel.addEventListener('load', () => {
+        if (modelLoader) {
+          modelLoader.style.opacity = '0';
+          setTimeout(() => { modelLoader.style.display = 'none'; }, 300);
+        }
+
+        // Cache initial center target
+        if (typeof unipackModel.getCameraTarget === 'function') {
+          const t = unipackModel.getCameraTarget();
+          if (t && typeof t.x === 'number') {
+            initialCameraTarget = `${t.x}m ${t.y}m ${t.z}m`;
+          }
+        }
+
+        // Prevent <model-viewer> from dropping resolution/blurring during drag and rotation
+        if (unipackModel.renderer && typeof unipackModel.renderer.setPixelRatio === 'function') {
+          unipackModel.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        }
+      });
+
+      // Detect any user dragging, zooming, panning, or rotating
       unipackModel.addEventListener('camera-change', (event) => {
         if (event && event.detail && event.detail.source === 'user-interaction') {
           markModelInteracted();
@@ -807,34 +846,67 @@
       unipackModel.addEventListener('touchstart', markModelInteracted, { passive: true });
       unipackModel.addEventListener('wheel', markModelInteracted, { passive: true });
 
-      if (resetViewBtn) {
-        resetViewBtn.addEventListener('click', () => {
-          const isAutoRotating = unipackModel.hasAttribute('auto-rotate');
+      // Reset View click handler with robust pan, orbit, and turntable rotation restoration
+      let resetTimeoutId = null;
 
-          // Reset model-viewer attributes to default
-          unipackModel.cameraTarget = DEFAULT_TARGET;
-          unipackModel.cameraOrbit = DEFAULT_CAMERA_ORBIT;
-          unipackModel.fieldOfView = DEFAULT_FOV;
+      function performResetView() {
+        const isAutoRotating = unipackModel.hasAttribute('auto-rotate');
 
-          // If jumping or resetting camera goal
-          if (typeof unipackModel.jumpCameraToGoal === 'function') {
-            unipackModel.jumpCameraToGoal();
-          }
+        if (resetTimeoutId) {
+          clearTimeout(resetTimeoutId);
+          resetTimeoutId = null;
+        }
 
-          if (isAutoRotating) {
-            // Momentarily pause auto-rotate so it picks up the reset orbit immediately
-            unipackModel.removeAttribute('auto-rotate');
-            requestAnimationFrame(() => {
-              if (typeof unipackModel.jumpCameraToGoal === 'function') {
-                unipackModel.jumpCameraToGoal();
-              }
-              unipackModel.setAttribute('auto-rotate', '');
-            });
-          }
+        // 1. If auto-rotating, pause it so it doesn't fight the camera reset
+        if (isAutoRotating) {
+          unipackModel.removeAttribute('auto-rotate');
+        }
 
-          // Disable button after reset until user interacts again
+        // 2. CRITICAL: Reset internal turntable rotation (yaw) accumulated during auto-rotate
+        // Without this, model-viewer adds accumulated turntable rotation to cameraOrbit!
+        if (typeof unipackModel.resetTurntableRotation === 'function') {
+          unipackModel.resetTurntableRotation(0);
+        }
+
+        // 3. Reset pan target to model center
+        const targetStr = initialCameraTarget || 'auto auto auto';
+        unipackModel.cameraTarget = targetStr;
+        unipackModel.setAttribute('camera-target', targetStr);
+
+        // 4. Reset camera orbit and field of view to default
+        unipackModel.cameraOrbit = DEFAULT_CAMERA_ORBIT;
+        unipackModel.setAttribute('camera-orbit', DEFAULT_CAMERA_ORBIT);
+        unipackModel.fieldOfView = DEFAULT_FOV;
+        unipackModel.setAttribute('field-of-view', DEFAULT_FOV);
+
+        // 5. Instantly jump camera to the goal position
+        if (typeof unipackModel.jumpCameraToGoal === 'function') {
+          unipackModel.jumpCameraToGoal();
+        }
+
+        // 6. If auto-rotate was ON, re-enable it cleanly starting from turntableRotation = 0
+        if (isAutoRotating) {
+          resetTimeoutId = setTimeout(() => {
+            if (typeof unipackModel.resetTurntableRotation === 'function') {
+              unipackModel.resetTurntableRotation(0);
+            }
+            unipackModel.cameraTarget = targetStr;
+            unipackModel.cameraOrbit = DEFAULT_CAMERA_ORBIT;
+            if (typeof unipackModel.jumpCameraToGoal === 'function') {
+              unipackModel.jumpCameraToGoal();
+            }
+            unipackModel.setAttribute('auto-rotate', '');
+          }, 150);
+        }
+
+        // Disable button after reset until user interacts again
+        if (resetViewBtn) {
           resetViewBtn.disabled = true;
-        });
+        }
+      }
+
+      if (resetViewBtn) {
+        resetViewBtn.addEventListener('click', performResetView);
       }
 
       if (autoRotateBtn) {
@@ -851,18 +923,6 @@
       }
       let current = 0;
       let isOpened = false;
-
-      unipackModel.addEventListener('load', () => {
-        if (modelLoader) {
-          modelLoader.style.opacity = '0';
-          setTimeout(() => { modelLoader.style.display = 'none'; }, 300);
-        }
-
-        // Prevent <model-viewer> from dropping resolution/blurring during drag and rotation
-        if (unipackModel.renderer && typeof unipackModel.renderer.setPixelRatio === 'function') {
-          unipackModel.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-        }
-      });
 
       function openDoors() {
         if (isOpened) return;
@@ -950,4 +1010,5 @@
     })();
   </script>
 </body>
+
 </html>
