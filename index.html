@@ -143,6 +143,16 @@
       border-radius: 20px;
     }
 
+    .cover-teaser-plaque,
+    .text-slide,
+    .scene-invitation {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.42), 0 0 6px rgba(0, 0, 0, 0.28);
+    }
+
+    .invitation-card {
+      text-shadow: none;
+    }
+
     /* .card-frame.is-emerald {
       background: linear-gradient(90deg, #0c1c0a 0%, #7dd175 100%);
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85), 0 0 12px rgba(0, 0, 0, 0.55);
@@ -592,7 +602,7 @@
         </div>
 
         <div class="w-full flex flex-col items-center">
-          <p class="font-montserrat font-bold text-sm sm:text-base tracking-wider text-sage-300 uppercase">
+          <p class="font-montserrat font-bold text-sm sm:text-base tracking-wider text-white uppercase">
             NEW PRODUCT INTRODUCTION
           </p>
           <h2 class="mt-2 font-montserrat font-bold text-3xl sm:text-4xl tracking-tight text-white uppercase">
@@ -634,7 +644,7 @@
           <div class="text-slot-container">
             <!-- Page 1 Top Text -->
             <div class="text-slide active" id="topSlide0">
-              <p class="font-montserrat font-bold text-sm sm:text-base tracking-widest text-sage-300 uppercase">
+              <p class="font-montserrat font-bold text-sm sm:text-base tracking-widest text-white uppercase">
                 INTRODUCING
               </p>
               <h2
@@ -649,7 +659,7 @@
             <!-- Page 2 Top Text -->
             <div class="text-slide" id="topSlide1">
               <h2
-                class="font-montserrat font-extrabold text-lg sm:text-2xl leading-snug tracking-wide text-sage-300 uppercase">
+                class="font-montserrat font-extrabold text-lg sm:text-2xl leading-snug tracking-wide text-white uppercase">
                 ONE MACHINE. MULTIPLE<br>PACKING SOLUTIONS.
               </h2>
               <p class="mt-0.5 text-sm sm:text-base text-white/95">
@@ -658,7 +668,7 @@
               <p class="mt-1 font-montserrat font-bold text-base sm:text-lg text-white">
                 50 kg / 60 kg bags &amp; carton boxes
               </p>
-              <p class="mt-0.5 text-xs sm:text-sm font-semibold text-sage-300">
+              <p class="mt-0.5 text-xs sm:text-sm font-semibold text-white">
                 — all in one machine —
               </p>
             </div>
@@ -671,7 +681,7 @@
                 <model-viewer id="unipackModel" alt="Statex Ultra Unipack 234 360-degree 3D Model"
                   src="statex-automation-model-optimized.glb"
                   poster="statex-product-image.webp" loading="eager" reveal="auto" camera-controls
-                  camera-orbit="-19.91deg 63.63deg 21.18m"
+                  camera-orbit="2.844deg 76.71deg 21.18m"
                   field-of-view="24deg" shadow-intensity="0.6" environment-image="neutral" touch-action="pan-y"
                   interaction-prompt="auto" min-field-of-view="12deg" max-field-of-view="24deg"
                   max-camera-orbit="auto auto 21.18m">
@@ -701,17 +711,17 @@
           <div class="text-slot-container">
             <!-- Page 1 Bottom Text -->
             <div class="text-slide active" id="bottomSlide0">
-              <p class="font-montserrat font-bold text-sm sm:text-base tracking-wider text-sage-300 uppercase">
+              <p class="font-montserrat font-bold text-sm sm:text-base tracking-wider text-white uppercase">
                 AUTOMATION &nbsp;•&nbsp; PRECISION &nbsp;•&nbsp; PRODUCTIVITY
               </p>
-              <p class="mt-1 text-sm sm:text-base text-sage-300">
+              <p class="mt-1 text-sm sm:text-base text-white">
                 A smarter way to pack cone yarn
               </p>
             </div>
 
             <!-- Page 2 Bottom Text -->
             <div class="text-slide -mt-1 sm:-mt-1.5" id="bottomSlide1">
-              <p class="font-montserrat font-bold text-xs sm:text-sm tracking-wider text-sage-300 uppercase">
+              <p class="font-montserrat font-bold text-xs sm:text-sm tracking-wider text-white uppercase">
                 MECHANICAL SPEED OF PACKING
               </p>
               <p class="mt-0.5 font-montserrat font-bold text-xl sm:text-[26px] text-white uppercase">
@@ -727,7 +737,7 @@
         <!-- PAGE 3: Final Exhibition Scene -->
         <section class="scene-invitation" id="sceneInvitation" aria-label="Page 3: India ITME 2026">
           <div class="w-full flex flex-col items-center">
-            <p class="font-montserrat font-bold text-sm sm:text-base tracking-widest text-sage-300 uppercase">
+            <p class="font-montserrat font-bold text-sm sm:text-base tracking-widest text-white uppercase">
               MEET US AT
             </p>
             <h2 class="mt-1 font-montserrat font-bold text-2xl sm:text-[30px] tracking-wide text-white uppercase">
@@ -771,7 +781,7 @@
             <p class="mt-0.5 font-montserrat font-extrabold text-sm sm:text-base text-white tracking-wide uppercase">
               K. SUBRAMANIAM M.D.
             </p>
-            <p class="mt-0.5 text-xs sm:text-sm font-semibold text-sage-300">
+            <p class="mt-0.5 text-xs sm:text-sm font-semibold text-white">
               Statex Group of Companies
             </p>
           </div>
@@ -816,7 +826,7 @@
       const sharedModelCard = document.getElementById('sharedModelCard');
       const resetViewBtn = document.getElementById('resetViewBtn');
 
-      const DEFAULT_CAMERA_ORBIT = '-19.91deg 63.63deg 21.18m';
+      const DEFAULT_CAMERA_ORBIT = '2.844deg 76.71deg 21.18m';
       const DEFAULT_FOV = '24deg';
       let initialCameraTarget = 'auto auto auto';
 
