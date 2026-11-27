@@ -636,6 +636,10 @@
                 <model-viewer
                   id="unipackModel"
                   alt="Statex Unipack 909 360-degree 3D Model"
+                  src="statex-automation-model.glb"
+                  poster="statex-product-image.webp"
+                  loading="eager"
+                  reveal="auto"
                   camera-controls
                   auto-rotate
                   auto-rotate-delay="400"
@@ -647,8 +651,8 @@
                   touch-action="pan-y"
                   interaction-prompt="auto">
                 </model-viewer>
-                <div id="modelLoader" class="absolute inset-0 flex items-center justify-center bg-[#f5f6f2]/80 text-[#223026] text-xs font-semibold tracking-wide pointer-events-none">
-                  Loading Product...
+                <div id="modelLoader" class="absolute inset-0 flex items-center justify-center bg-[#f5f6f2]/60 text-[#223026] text-xs font-semibold tracking-wide pointer-events-none transition-opacity duration-300">
+                  <span class="px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm">Preparing 3D View...</span>
                 </div>
                 <div class="absolute bottom-2.5 right-3 z-10 flex items-center gap-1.5">
                   <button id="autoRotateBtn" type="button" class="px-2.5 py-1.5 rounded-full bg-[#2b371b]/85 hover:bg-[#566A39] text-[#9fd09d] hover:text-white text-[11px] font-semibold tracking-wide border border-[#9fd09d]/40 backdrop-blur-sm transition cursor-pointer">
@@ -806,36 +810,12 @@
       }
       let current = 0;
       let isOpened = false;
-      let modelBlobUrl = null;
-      let modelFetchStarted = false;
 
       unipackModel.addEventListener('load', () => {
-        if (modelLoader) modelLoader.style.display = 'none';
-      });
-
-      function startBackgroundModelFetch() {
-        if (modelFetchStarted) return;
-        modelFetchStarted = true;
-        fetch('statex-automation-model.glb')
-          .then((res) => {
-            if (!res.ok) throw new Error('Model fetch failed');
-            return res.blob();
-          })
-          .then((blob) => {
-            modelBlobUrl = URL.createObjectURL(blob);
-            if (isOpened && !unipackModel.getAttribute('src')) {
-              unipackModel.setAttribute('src', modelBlobUrl);
-            }
-          })
-          .catch(() => {
-            if (isOpened && !unipackModel.getAttribute('src')) {
-              unipackModel.setAttribute('src', 'statex-automation-model.glb');
-            }
-          });
-      }
-
-      window.addEventListener('load', () => {
-        setTimeout(startBackgroundModelFetch, 350);
+        if (modelLoader) {
+          modelLoader.style.opacity = '0';
+          setTimeout(() => { modelLoader.style.display = 'none'; }, 300);
+        }
       });
 
       function openDoors() {
@@ -843,11 +823,6 @@
         isOpened = true;
         frame.classList.add('is-open');
         scenesContainer.classList.add('revealed');
-        if (modelBlobUrl && !unipackModel.getAttribute('src')) {
-          unipackModel.setAttribute('src', modelBlobUrl);
-        } else if (!modelFetchStarted) {
-          startBackgroundModelFetch();
-        }
       }
 
       openSealBtn.addEventListener('click', openDoors);
