@@ -966,6 +966,19 @@
       // Attempt immediate playback as early as possible on page load
       startAmbientMusic();
 
+      // Fallback: if browser blocked unmuted autoplay on load, start on first interaction
+      function unlockAudioOnInteraction() {
+        if (!isMusicMuted && bgMusic.paused) {
+          startAmbientMusic();
+        }
+        window.removeEventListener('pointerdown', unlockAudioOnInteraction);
+        window.removeEventListener('touchstart', unlockAudioOnInteraction);
+        window.removeEventListener('keydown', unlockAudioOnInteraction);
+      }
+      window.addEventListener('pointerdown', unlockAudioOnInteraction, { once: true, passive: true });
+      window.addEventListener('touchstart', unlockAudioOnInteraction, { once: true, passive: true });
+      window.addEventListener('keydown', unlockAudioOnInteraction, { once: true });
+
       function stopAmbientMusic() {
         bgMusic.pause();
       }
