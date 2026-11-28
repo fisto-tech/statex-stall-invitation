@@ -952,16 +952,19 @@
       const musicToggleBtn = document.getElementById('musicToggleBtn');
       const bgMusic = new Audio('luxury-bg-music.mp3');
       bgMusic.loop = true;
-      bgMusic.volume = 0.35;
+      bgMusic.muted = false;
       bgMusic.preload = 'auto';
       let isMusicMuted = false;
 
       function startAmbientMusic() {
-        if (isMusicMuted) return;
+        if (isMusicMuted || !bgMusic.paused) return;
         bgMusic.play().catch(() => {
-          // Autoplay may be blocked until user interaction
+          // Autoplay may be blocked by browser policy
         });
       }
+
+      // Attempt immediate playback as early as possible on page load
+      startAmbientMusic();
 
       function stopAmbientMusic() {
         bgMusic.pause();
